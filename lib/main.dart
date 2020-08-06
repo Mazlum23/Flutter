@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'account.dart';
-import 'home.dart';
-import 'info.dart';
+import './account/account.dart';
+import './home/home.dart';
+import './info/info.dart';
 
 void main() => runApp(new MyApp());
 

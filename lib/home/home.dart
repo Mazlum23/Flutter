@@ -16,10 +16,10 @@ class Home extends StatelessWidget{
     'App Linking',
   ];
   final List<String> descriptions = [
-    'Account kit sayfasındasınız ',
-    'Ads kit sayfasındasınız ',
-    'Analytic sayfasındasınız ',
-    'App linking sayfasındasınız ',
+    'Account kit page  ',
+    'Ads kit page ',
+    'Analytic page ',
+    'App linking page ',
   ];
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,6 @@ class Home extends StatelessWidget{
                       (MediaQuery.of(context).size.height / 1.3),),
                 itemBuilder: (BuildContext context, int index){
                   return InkWell(
-
                     child: KitCard(
                       name: names[index],
                       image: images[index],

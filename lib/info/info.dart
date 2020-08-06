@@ -13,10 +13,11 @@ class Info extends StatelessWidget{
                   padding: EdgeInsets.all(4),
                   color: Colors.white,
                   alignment: Alignment.center,
-                  child: Text("Huawei, bilgi ve iletişim teknolojileri (ICT) altyapısı ve akıllı cihazlarda lider "
-                      "bir küresel sağlayıcıdır. Telekom ağları, BT, akıllı cihazlar ve bulut hizmetleri olmak"
-                      " üzere dört önemli etki alanında entegre çözümler ile tam internet bağlantılı, akıllı"
-                      " bir dünya için dijitali, her bir kişiye, eve ve kuruluşa sunma taahhüdünde bulunmaktadır.",
+                  child: Text(
+                              "Huawei is a leader in information and communication technologies (ICT) technologies and smart devices. "
+                              "is a global provider. To be telecom networks, IT, smart devices and cloud services"
+                              "website, smart"
+                              "the digital for a world is committed to bringing it to a person, home and organization.",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w900,
