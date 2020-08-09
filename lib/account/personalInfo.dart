@@ -8,10 +8,73 @@ void customLaunch(command) async {
     print(' could not launch $command');
   }
 }
-class PersonalInfo extends StatelessWidget{
+class PersonalInfo extends StatefulWidget{
+  @override
+  _PersonalInfoState createState() => _PersonalInfoState();
+}
+
+class _PersonalInfoState extends State<PersonalInfo> {
+  String nameSurname = "Mazlum Gürbüz";
+  String email = "mazlumgurbuz30@gmail.com";
+
+  TextEditingController _controller;
+  TextEditingController _controller1;
+  @override
+  initState(){
+    _controller = new TextEditingController();
+    _controller1 = new TextEditingController();
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: new FloatingActionButton(
+          tooltip: 'Add',
+          child: new Icon(Icons.edit),
+          backgroundColor: Colors.blue,
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text('Change info'),
+                  content: Container(
+                    height: 200,
+                    width: 200,
+                    child: Column(
+                      children: <Widget>[
+                        TextField(
+                          controller: _controller,
+                          textInputAction: TextInputAction.go,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(hintText: "change the name-surname"),
+                        ),
+                        TextField(
+                          controller: _controller1,
+                          textInputAction: TextInputAction.go,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(hintText: "change the e_mail"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    new FlatButton(
+                      child: new Text('Submit'),
+                      onPressed: (){
+                        setState((){
+                          this.nameSurname = _controller.text;
+                          this.email = _controller1.text;
+                        });
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                )
+            );
+          }
+      ),
       body:  Container(
           margin: EdgeInsets.all(4),
           padding: EdgeInsets.all(4),
@@ -33,9 +96,9 @@ class PersonalInfo extends StatelessWidget{
                           fit: BoxFit.fill,
                         ),
                       ),
-                      Text("Mazlum Gürbüz", style: TextStyle(
+                      Text(nameSurname, style: TextStyle(
                           color: Colors.black),),
-                      Text("mazlumgurbuz30@gmail.com", style: TextStyle(
+                      Text(email, style: TextStyle(
                           color: Colors.black),),
                       Container(
                           color: Colors.white,

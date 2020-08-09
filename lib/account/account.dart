@@ -16,6 +16,7 @@ class Account extends StatelessWidget {
           resizeToAvoidBottomPadding: false,
           appBar: AppBar(
             backgroundColor: Colors.grey,
+            title: Text('Profile'),
             bottom: TabBar(
               tabs: [
                 Tab(text: ("Personal Info")),

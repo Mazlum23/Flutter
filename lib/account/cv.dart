@@ -3,14 +3,11 @@ import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 
 
 class CV extends StatefulWidget {
-  CV({Key key, this.title}) : super(key: key);
-  final String title;
-
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _CV createState() => _CV();
 }
 
-class _MyHomePageState extends State<CV> {
+class _CV extends State<CV> {
 
   bool _isLoading = true;
   PDFDocument doc;
@@ -37,8 +34,6 @@ class _MyHomePageState extends State<CV> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: Center(
         child: Column(

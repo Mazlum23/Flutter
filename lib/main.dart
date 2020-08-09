@@ -26,13 +26,10 @@ class MyAppState extends State<MyApp> {
         // Use the old theme but apply the following three changes
           textTheme: Theme.of(context).textTheme.apply(
               fontFamily: 'Open Sans',
-              bodyColor: Colors.white,
+              bodyColor: Colors.blue,
               displayColor: Colors.black)),
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.grey,
-          title: Text('Profile'),
-        ),
+
         body: _pageOptions[_selectedTab],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedTab,

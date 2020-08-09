@@ -4,6 +4,10 @@ class Info extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        title: Text('Information Huawei'),
+      ),
       body: Center(
           child: Column(
             children: <Widget>[

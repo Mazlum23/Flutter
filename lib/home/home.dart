@@ -24,6 +24,10 @@ class Home extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.grey,
+          title: Text('Home'),
+        ),
         backgroundColor: Colors.white,
         body: Container(
             padding: EdgeInsets.all(16),
