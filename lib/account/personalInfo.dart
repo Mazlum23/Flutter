@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flushbar/flushbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void customLaunch(command) async {
   if (await canLaunch(command)) {
@@ -11,27 +13,52 @@ void customLaunch(command) async {
 class PersonalInfo extends StatefulWidget{
   @override
   _PersonalInfoState createState() => _PersonalInfoState();
+
 }
+final databaseReference = Firestore.instance;
+
 
 class _PersonalInfoState extends State<PersonalInfo> {
-  String nameSurname = "Mazlum Gürbüz";
-  String email = "mazlumgurbuz30@gmail.com";
+  String nameSurname ;
+  String email ;
+  String image;
+  String twitter_image;
+  String facebook_image;
+  String github_image;
+  String instagram_image;
+  String email_image;
+  void getData() {
+    databaseReference.collection("account").getDocuments().then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        setState(() { // call setState to rebuild the view
+          this.nameSurname= result.data['name'];
+          this.email=result.data['email'];
+          this.image=result.data['image'];
+          this.twitter_image=result.data['twitter_image'];
+          this.github_image = result.data['github_image'];
+          this.facebook_image= result.data['facebook_image'];
+          this.instagram_image= result.data['instagram_image'];
+          this.email_image= result.data['email_image'];
+        });
 
+      });
+    });
+  }
   TextEditingController _controller;
   TextEditingController _controller1;
   @override
   initState(){
     _controller = new TextEditingController();
     _controller1 = new TextEditingController();
+    getData();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: new FloatingActionButton(
-          tooltip: 'Add',
+          tooltip: 'Edit',
           child: new Icon(Icons.edit),
           backgroundColor: Colors.blue,
           onPressed: () {
@@ -44,6 +71,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     width: 200,
                     child: Column(
                       children: <Widget>[
+
                         TextField(
                           controller: _controller,
                           textInputAction: TextInputAction.go,
@@ -60,7 +88,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     ),
                   ),
                   actions: <Widget>[
-                    new FlatButton(
+                    new MaterialButton(
                       child: new Text('Submit'),
                       onPressed: (){
                         setState((){
@@ -68,6 +96,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           this.email = _controller1.text;
                         });
                         Navigator.pop(context);
+                        Flushbar(
+                          flushbarPosition: FlushbarPosition.TOP,
+                          title:  "Hey ",
+                          message:  "there are some changes" ,
+                          icon: Icon(
+                            Icons.edit,
+                            size: 28.0,
+                            color: Colors.blue[300],
+                          ),
+                          duration:  Duration(seconds: 4),
+                        )..show(context);
                       },
                     )
                   ],
@@ -89,8 +128,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     children: <Widget>[
                       ClipRRect(
                         borderRadius: BorderRadius.circular(100.0),
-                        child: Image.asset(
-                          'assets/homeImages/pic1.jpg',
+                        child: Image.network(
+                          image,
                           width: 110.0,
                           height: 110.0,
                           fit: BoxFit.fill,
@@ -159,8 +198,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Image.asset(
-                              "assets/images/twitter.png",
+                            Image.network(
+                              twitter_image,
                               height: 20.0,
                               width: 20.0,
                             ),
@@ -190,8 +229,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Image.asset(
-                              "assets/images/github.png",
+                            Image.network(
+                              github_image,
                               height: 20.0,
                               width: 20.0,
                             ),
@@ -222,8 +261,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Image.asset(
-                              "assets/images/instagram.png",
+                            Image.network(
+                              instagram_image,
                               height: 20.0,
                               width: 20.0,
                             ),
@@ -253,8 +292,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Image.asset(
-                              "assets/images/facebook.png",
+                            Image.network(
+                              facebook_image,
                               height: 20.0,
                               width: 20.0,
                             ),
@@ -285,8 +324,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Image.asset(
-                              "assets/images/email.png",
+                            Image.network(
+                              email_image,
                               height: 20.0,
                               width: 20.0,
                             ),

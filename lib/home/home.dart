@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
 import 'detail.dart';
 import 'kitCards.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Home extends StatelessWidget{
-  final List<String> images = [
-    'assets/homeImages/pic1.jpg',
-    'assets/homeImages/pic2.png',
-    'assets/homeImages/pic3.jpg',
-    'assets/homeImages/pic4.jpg',
-  ];
-  final List<String> names = [
-    'Account',
-    'Ads kit',
-    'Analytic',
-    'App Linking',
-  ];
-  final List<String> descriptions = [
-    'Account kit page  ',
-    'Ads kit page ',
-    'Analytic page ',
-    'App linking page ',
-  ];
+
+final databaseReference = Firestore.instance;
+class Home extends StatefulWidget{
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final List<String> names=[];
+  final List<String> images=[];
+  final List<String> descriptions=[];
+  void getData()  {
+     databaseReference.collection('kits').getDocuments().then((data){
+      data.documents.forEach((result) {
+        images.add(result.data['image']);
+        names.add(result.data['name']);
+        descriptions.add((result.data['description']));
+      });
+    });
+  }
+
+  initState(){
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +42,7 @@ class Home extends StatelessWidget{
             padding: EdgeInsets.all(16),
             child: GridView.builder(
                 padding: const EdgeInsets.all(1.0),
-                itemCount: images.length,
+                itemCount:names.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 30.0, mainAxisSpacing: 30.0,
                   childAspectRatio: MediaQuery.of(context).size.width /
                       (MediaQuery.of(context).size.height / 1.3),),
@@ -44,8 +53,6 @@ class Home extends StatelessWidget{
                       image: images[index],
                     ),
                     onTap: (){
-                      debugPrint(names[index]);
-                      debugPrint(descriptions[index]);
                       Navigator.push(
                         context,
                         MaterialPageRoute(

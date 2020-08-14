@@ -1,6 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Info extends StatelessWidget{
+class Info extends StatefulWidget{
+  @override
+  _InfoState createState() => _InfoState();
+}
+
+final databaseReference = Firestore.instance;
+class _InfoState extends State<Info> {
+  String image;
+  String description;
+  void getData() {
+    databaseReference.collection("info").getDocuments().then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        setState(() { // call setState to rebuild the view
+          this.image= result.data['image'];
+          this.description=result.data['description'];
+        });
+      });
+    });
+  }
+  initState(){
+    getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,17 +34,13 @@ class Info extends StatelessWidget{
       body: Center(
           child: Column(
             children: <Widget>[
-              Image.asset("assets/images/huawei.png"),
+              Image.network(this.image),
               Container(
                   margin: EdgeInsets.all(4),
                   padding: EdgeInsets.all(4),
                   color: Colors.white,
                   alignment: Alignment.center,
-                  child: Text(
-                              "Huawei is a leader in information and communication technologies (ICT) technologies and smart devices. "
-                              "is a global provider. To be telecom networks, IT, smart devices and cloud services"
-                              "website, smart"
-                              "the digital for a world is committed to bringing it to a person, home and organization.",
+                  child: Text(this.description,
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w900,

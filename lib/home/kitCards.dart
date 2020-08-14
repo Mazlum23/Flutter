@@ -6,6 +6,9 @@ class KitCard extends StatelessWidget{
   String description;
 
   KitCard({this.name, this.image,this.description});
+  KitCard.fromJson(Map<String, dynamic> parsedJSON)
+      : name = parsedJSON['name'],
+        image = parsedJSON['image'];
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +18,9 @@ class KitCard extends StatelessWidget{
           Container(
             child: Column(
               children: <Widget>[
-                new Image.asset(image,width: 100,
+                new Image.network(image,width: 100,
                   height: 100,
-                    fit: BoxFit.fitWidth,),
+                  fit: BoxFit.fitWidth,),
                 new Text(name,style: TextStyle(
                     color: Colors.grey[800],
                     fontWeight: FontWeight.bold,
@@ -30,3 +33,4 @@ class KitCard extends StatelessWidget{
     );
   }
 }
+

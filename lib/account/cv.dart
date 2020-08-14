@@ -12,21 +12,12 @@ class _CV extends State<CV> {
   bool _isLoading = true;
   PDFDocument doc;
 
-  void _loadFromAssets() async {
-    setState(() {
-      _isLoading = true;
-    });
-    doc = await PDFDocument.fromAsset("assets/mazlum_gurbuz_cv.pdf");
-    setState(() {
-      _isLoading = false;
-    });
-  }
   void _loadFromUrl() async {
     setState(() {
       _isLoading = true;
     });
     doc = await PDFDocument.fromURL(
-        'https://www.biliciyapi.com.tr/uploads/fiyat/dosya/dosya1.pdf');
+        'https://firebasestorage.googleapis.com/v0/b/firstapp-d353d.appspot.com/o/mazlum_gurbuz_cv.pdf?alt=media&token=b60a0b6c-9f9f-48d7-ac03-b097af2dc3f0');
     setState(() {
       _isLoading = false;
     });
@@ -60,14 +51,6 @@ class _CV extends State<CV> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    RaisedButton(
-                      color: Colors.blue,
-                      child: Text(
-                        'Load From Assets',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: _loadFromAssets,
-                    ),
                     RaisedButton(
                       color: Colors.blue,
                       child: Text(
